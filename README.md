@@ -10,6 +10,4 @@ occurs many times before the one you want to bold. String.replace will replace t
 3) Everything after your selection.<br /><br />
 Now we DO use string.replace() on the selected text to add formatting. Last we concatenate (before, str.replace, after) and dump the result into a div
 so you can confirm that the formatting you wanted acutually worked!<br /><br />
-Here's the expected result before formatting and after formatting<br /><br />
-{...a bunch of text WORDS YOU WANT TO FORMAT ...A bunch more text}<br />
-{...a bunch of text <b><i>WORDS YOU WANT TO FORMAT</i></b> ...A bunch more text}
+No need for adding HTML BRs. Line breaks / hard returns (\r, \n) are replaced with HTML BRs when the resulting text is displayed.
