@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+	
+	
+	<textarea id ="text" rows=10 >Hello world, hello world, hello world</textarea><br />
+	<button id="main-bttn7" onclick="return getTextSelection(text, 'headline')">Headline</button>
+	<button id="main-bttn" onclick="return getTextSelection(text, 'bold')">Bold</button>
+	<button id="main-bttn2" onclick="return getTextSelection(text, 'italic')">Italic</button>
+	<button id="main-bttn3" onclick="return getTextSelection(text, 'underline')">Underline</button>
+	<button id="main-bttn4" onclick="return getTextSelection(text, 'link')">Make a Link</button>
+	<button id="main-bttn5" onclick="return updateResult()">Set Link / Update</button>
+	<button id="main-bttn6" onclick="return showInst()">Show Instructions</button>
+	<div id="result-area"></div>
+	<div id="instruct">
+		<h2>How to use the text editor.</h2>
+		<p>For bold. italic, and underline, select the text you would like to format - then click the button - bold, italic or underline.<br />If you want to format a piece of text with multiple formats - select the text and click a formatting button, select the text again and click a different formatting button</p>
+		<p>For adding a link. Select the text you want to be a clickable link. Replace the text 'REPLACE THIS TEXT WITH YOUR LINK - THEN CLICK Set Link' with your link. your link must start with "http://" once you are happy with your link, click Set Link and you're done.</p>
+	<button onclick="return hideInst()">Hide these instructions</button>
+	</div>
+	
+	
+    <script type="text/javascript">
+	
+	function hideInst(){
+		document.getElementById("instruct").style.visibility = 'hidden';
+		document.getElementById("main-bttn6").style.visibility = "visible";
+	};
+	function showInst(){
+		document.getElementById("instruct").style.visibility = 'visible';
+		document.getElementById("main-bttn6").style.visibility = "hidden";
+	}
+	function updateResult(){
+		document.getElementById("result-area").innerHTML = document.getElementById("text").value.replace(/(?:\r\n|\r|\n)/g, '<br>');
+	}
+    function getTextSelection(el, formatType) {
+        var start = 0, end = 0;
+
+		if (el.selectionEnd > 0 && window.getSelection().toString().length > 0) {
+			let str = document.getElementById("text").value;
+			
+            start = el.selectionStart;
+            end = el.selectionEnd;
+			
+			let before = str.slice(0, start);
+			let after = str.slice(end, str.length);
+			let strSlice = str.slice(start, end);
+			let strReplace;
+			if(formatType === "bold"){
+				strReplace = strSlice.replace(strSlice, "<b>"+strSlice+"</b>");
+			}
+			if(formatType === "italic"){
+				strReplace = strSlice.replace(strSlice, "<i>"+strSlice+"</i>");
+			}
+			if(formatType === "underline"){
+				strReplace = strSlice.replace(strSlice, "<u>"+strSlice+"</u>");
+			}
+			if(formatType === "link"){
+				strReplace = strSlice.replace(strSlice, "<a href='REPLACE THIS TEXT WITH YOUR LINK - THEN CLICK Set Link' target='blank'>"+strSlice+"</a>");
+			}
+			/*
+			if(formatType === "set"){
+				document.getElementById("result-area").innerHTML = document.getElementById("text").value.replace(/(?:\r\n|\r|\n)/g, '<br>');
+				return;
+			}
+			*/
+			if(formatType === "headline"){
+				strReplace = strSlice.replace(strSlice, "<h1>"+strSlice+"</h1>");
+			}
+			
+			let result = before+""+strReplace+""+after;
+			document.getElementById("text").value = result;
+			
+			document.getElementById("result-area").innerHTML = result.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        } else{
+			alert("Please select the text you want to add formatting to - then click a formatting button");
+		}
+    }
+    </script>
+	
+	<style>
+		#text{font-size:18px;width:90%;padding:20px;font-weight:bold;background-color:#000;color:#fff;}
+		#result-area{height:auto;width:90%;font-size:19px;color:#000;background-color:#eee;font-family:Arial;padding:20px;}
+		#instruct{margin-top:3px;height:auto;width:90%;font-size:19px;color:#999;background-color:#eee;font-family:Arial;padding:20px;}
+		button{display:inline;font-size:20px;background-color:#000;color:#fff;}
+		#main-bttn6{visibility:hidden;}
+	</style>
+    </body>
+</html>
